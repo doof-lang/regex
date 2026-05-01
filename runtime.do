@@ -91,14 +91,14 @@ export class Regex {
       flags.has(RegexFlag.DotAll),
       flags.has(RegexFlag.Extended),
     ) {
-      s: Success => Success {
+      s: Success -> Success {
         value: Regex {
           native: s.value,
           pattern,
           flags,
         }
       },
-      f: Failure => Failure {
+      f: Failure -> Failure {
         error: Regex.compileError(pattern, flags, f.error)
       }
     }
