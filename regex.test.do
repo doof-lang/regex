@@ -4,10 +4,10 @@ function requireRegex(pattern: string, flags: ReadonlySet<RegexFlag> = []): Rege
   let regex: Regex | null = null
 
   case Regex.compile(pattern, flags) {
-    s: Success => {
+    s: Success -> {
       regex = s.value
     }
-    f: Failure => {
+    f: Failure -> {
       assert(false, "expected regex compile success: ${f.error.message}")
     }
   }
@@ -18,8 +18,8 @@ function requireRegex(pattern: string, flags: ReadonlySet<RegexFlag> = []): Rege
 
 export function testCompileRejectsInvalidPatterns(): void {
   case Regex.compile("[abc") {
-    s: Success => assert(false, "expected invalid regex compile to fail")
-    f: Failure => assert(f.error.stage == "compile", "expected compile failures to use the compile stage")
+    s: Success -> assert(false, "expected invalid regex compile to fail")
+    f: Failure -> assert(f.error.stage == "compile", "expected compile failures to use the compile stage")
   }
 }
 
