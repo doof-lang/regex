@@ -2,6 +2,29 @@
   "name": "std/regex",
   "version": "0.1.0",
   "license": "ISC",
+  "externalDependencies": {
+    "pcre2": {
+      "kind": "archive",
+      "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.47/pcre2-10.47.tar.gz",
+      "sha256": "c08ae2388ef333e8403e670ad70c0a11f1eed021fd88308d7e02f596fcd9dc16",
+      "stripComponents": 1,
+      "destination": "vendor/pcre2",
+      "copyFiles": [
+        {
+          "from": "src/config.h.generic",
+          "to": "src/config.h"
+        },
+        {
+          "from": "src/pcre2.h.generic",
+          "to": "src/pcre2.h"
+        },
+        {
+          "from": "src/pcre2_chartables.c.dist",
+          "to": "src/pcre2_chartables.c"
+        }
+      ]
+    }
+  },
   "build": {
     "native": {
       "includePaths": ["vendor/pcre2/src"],
