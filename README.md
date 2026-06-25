@@ -2,6 +2,11 @@
 
 Regular expression matching, search, and replacement. Backed by [PCRE2](https://www.pcre.org/). Doof automatically acquires the pinned PCRE2 source archive into `vendor/pcre2` during build/test. Patterns are compiled once and reused. Named and positional captures are supported.
 
+## Documentation
+
+- [Guide and API reference](docs/API.md) explains PCRE2-backed compilation, flags, captures, replacement, and errors.
+- Tests can be run with `doof test regex`.
+
 ## Usage
 
 ```doof
