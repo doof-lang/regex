@@ -169,24 +169,18 @@ public:
             nullptr
         );
         if (code == nullptr) {
-            return doof::Result<std::shared_ptr<NativeRegex>, std::string>::failure(
-                formatCompileError(errorCode, errorOffset)
-            );
+            return doof::Failure<std::string>{formatCompileError(errorCode, errorOffset)};
         }
 
         uint32_t captureCount = 0;
         if (pcre2_pattern_info(code, PCRE2_INFO_CAPTURECOUNT, &captureCount) != 0) {
             pcre2_code_free(code);
-            return doof::Result<std::shared_ptr<NativeRegex>, std::string>::failure(
-                "Failed to inspect compiled regex"
-            );
+            return doof::Failure<std::string>{"Failed to inspect compiled regex"};
         }
 
         auto namedGroups = extractNamedGroups(code);
 
-        return doof::Result<std::shared_ptr<NativeRegex>, std::string>::success(
-            std::shared_ptr<NativeRegex>(new NativeRegex(code, captureCount, std::move(namedGroups)))
-        );
+        return doof::Success<std::shared_ptr<NativeRegex>>{std::shared_ptr<NativeRegex>(new NativeRegex(code, captureCount, std::move(namedGroups)))};
     }
 
     ~NativeRegex() {
