@@ -3,27 +3,27 @@
 import { RegexError, RegexFlag } from "./types"
 
 export import class NativeRegexMatch from "./native_regex.hpp" {
-  found(): bool
-  value(): string
-  start(): int
-  end(): int
-  nextSearchStart(previousStart: int): int
-  captureCount(): int
-  captureText(index: int): string
-  captureStart(index: int): int
-  captureEnd(index: int): int
-  hasNamedCapture(name: string): bool
-  namedCaptureText(name: string): string
-  namedCaptureStart(name: string): int
-  namedCaptureEnd(name: string): int
+  isolated found(): bool
+  isolated value(): string
+  isolated start(): int
+  isolated end(): int
+  isolated nextSearchStart(previousStart: int): int
+  isolated captureCount(): int
+  isolated captureText(index: int): string
+  isolated captureStart(index: int): int
+  isolated captureEnd(index: int): int
+  isolated hasNamedCapture(name: string): bool
+  isolated namedCaptureText(name: string): string
+  isolated namedCaptureStart(name: string): int
+  isolated namedCaptureEnd(name: string): int
 }
 
 export import class NativeRegex from "./native_regex.hpp" {
-  static compile(pattern: string, ignoreCase: bool, multiline: bool, dotAll: bool, extended: bool): Result<NativeRegex, string>
-  test(input: string): bool
-  find(input: string, startOffset: int): NativeRegexMatch
-  replaceFirst(input: string, replacement: string): string
-  replaceAll(input: string, replacement: string): string
+  isolated static compile(pattern: string, ignoreCase: bool, multiline: bool, dotAll: bool, extended: bool): Result<NativeRegex, string>
+  isolated test(input: string): bool
+  isolated find(input: string, startOffset: int): NativeRegexMatch
+  isolated replaceFirst(input: string, replacement: string): string
+  isolated replaceAll(input: string, replacement: string): string
 }
 
 export class Match {
