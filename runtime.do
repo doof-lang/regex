@@ -52,17 +52,17 @@ export class Match {
     }
   }
 
-  capture(name: string): string | null {
+  capture(name: string): string | none {
     if !this.native.hasNamedCapture(name) {
-      return null
+      return none
     }
 
     return this.native.namedCaptureText(name)
   }
 
-  captureRange(name: string): Tuple<int, int> | null {
+  captureRange(name: string): Tuple<int, int> | none {
     if !this.native.hasNamedCapture(name) {
-      return null
+      return none
     }
 
     return (this.native.namedCaptureStart(name), this.native.namedCaptureEnd(name))
@@ -106,10 +106,10 @@ export class Regex {
 
   test(input: string): bool => this.native.test(input)
 
-  find(input: string): Match | null {
+  find(input: string): Match | none {
     nativeMatch := this.native.find(input, 0)
     if !nativeMatch.found() {
-      return null
+      return none
     }
 
     return Match.fromNative(nativeMatch)
