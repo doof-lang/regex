@@ -1,6 +1,6 @@
 # std/regex
 
-Regular expression matching, search, and replacement. Backed by [PCRE2](https://www.pcre.org/). Doof automatically acquires the pinned PCRE2 source archive into `vendor/pcre2` during build/test. Patterns are compiled once and reused. Named and positional captures are supported.
+Regular expression matching, search, and replacement. Backed by [PCRE2](https://www.pcre.org/). The stdlib bundle includes the curated PCRE2 source tree in `vendor/pcre2`. Patterns are compiled once and reused. Named and positional captures are supported.
 
 ## Documentation
 

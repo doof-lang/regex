@@ -4,7 +4,7 @@
 compiled once into `Regex` values and can then be reused for tests, searches,
 capture extraction, and replacement.
 
-Doof automatically acquires the pinned PCRE2 source archive into `vendor/pcre2`
+The stdlib bundle includes the curated PCRE2 source tree in `vendor/pcre2`
 during build/test.
 
 ## Quick Start
