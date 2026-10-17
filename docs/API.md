@@ -12,7 +12,7 @@ during build/test.
 ```doof
 import { Regex, RegexFlag } from "std/regex"
 
-email := try! Regex.compile("(\\w+)@(\\w+\\.\\w+)")
+email := Regex.compile("(\\w+)@(\\w+\\.\\w+)")!
 
 if email.test("hello@example.com") {
   first := email.find("hello@example.com")
@@ -21,7 +21,7 @@ if email.test("hello@example.com") {
   }
 }
 
-words := try! Regex.compile("\\w+", [RegexFlag.IgnoreCase])
+words := Regex.compile("\\w+", [RegexFlag.IgnoreCase])!
 redacted := words.replaceAll("hello world", "x")
 ```
 
