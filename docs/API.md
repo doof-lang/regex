@@ -14,11 +14,8 @@ import { Regex, RegexFlag } from "std/regex"
 
 email := Regex.compile("(\\w+)@(\\w+\\.\\w+)")!
 
-if email.test("hello@example.com") {
-  first := email.find("hello@example.com")
-  if first != null {
-    println(first!.captures[0])
-  }
+if first := email.find("hello@example.com") {
+  println(first.captures[0])
 }
 
 words := Regex.compile("\\w+", [RegexFlag.IgnoreCase])!

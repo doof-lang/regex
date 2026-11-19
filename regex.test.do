@@ -1,19 +1,10 @@
 import { Match, Regex, RegexFlag } from "./index"
 
 function requireRegex(pattern: string, flags: ReadonlySet<RegexFlag> = []): Regex {
-  let regex: Regex | none = none
-
-  case Regex.compile(pattern, flags) {
-    s: Success -> {
-      regex = s.value
-    }
-    f: Failure -> {
-      assert(false, "expected regex compile success: ${f.error.message}")
-    }
+  regex := Regex.compile(pattern, flags) else error {
+    panic("expected regex compile success: ${error.message}")
   }
-
-  assert(regex != none, "expected regex compile helper to produce a value")
-  return regex!
+  return regex
 }
 
 export function testCompileRejectsInvalidPatterns(): none {
@@ -30,18 +21,20 @@ export function testIgnoreCaseFlagControlsTest(): none {
 
 export function testFindExposesNamedCapturesAndRanges(): none {
   regex := requireRegex("(?P<year>[0-9]{4})-(?P<month>[0-9]{2})-(?P<day>[0-9]{2})")
-  hit := regex.find("released on 2026-03-30")
-  assert(hit != none, "expected the date regex to find a match")
+  hit := regex.find("released on 2026-03-30") else {
+    panic("expected the date regex to find a match")
+  }
 
-  [year, month, day] := hit!.captures
+  [year, month, day] := hit.captures
   assert(year == "2026", "expected the first positional capture")
   assert(month == "03", "expected the second positional capture")
   assert(day == "30", "expected the third positional capture")
-  assert(hit!.capture("year") == "2026", "expected named capture lookup to resolve the year")
+  assert(hit.capture("year") == "2026", "expected named capture lookup to resolve the year")
 
-  range := hit!.captureRange("month")
-  assert(range != none, "expected named capture range lookup to resolve the month")
-  (start, end) := range!
+  range := hit.captureRange("month") else {
+    panic("expected named capture range lookup to resolve the month")
+  }
+  (start, end) := range
   assert(start == 17, "expected the month capture start offset")
   assert(end == 19, "expected the month capture end offset")
 }
@@ -71,12 +64,13 @@ export function testExtendedIgnoresUnescapedWhitespace(): none {
 
 export function testOptionalCapturesPreserveParallelArrays(): none {
   regex := requireRegex("(a)?(b)")
-  hit := regex.find("b")
-  assert(hit != none, "expected the optional-capture regex to match")
-  assert(hit!.captures.length == 2, "expected both capture slots to exist")
-  assert(hit!.captures[0] == "", "expected unmatched captures to surface as empty strings")
+  hit := regex.find("b") else {
+    panic("expected the optional-capture regex to match")
+  }
+  assert(hit.captures.length == 2, "expected both capture slots to exist")
+  assert(hit.captures[0] == "", "expected unmatched captures to surface as empty strings")
 
-  (start, end) := hit!.captureRanges[0]
+  (start, end) := hit.captureRanges[0]
   assert(start == -1, "expected unmatched capture ranges to use -1 for the start")
   assert(end == -1, "expected unmatched capture ranges to use -1 for the end")
 }
